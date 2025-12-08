@@ -1,0 +1,15 @@
+callbacks = [
+ ('билет-101', 'Степан'),
+ ('билет-204', 'Мария'),
+ ('билет-350', 'Юля'),
+]
+current_ticket = 'билет-204'
+outdated_ticket = 'билет-999'
+last_operator = {}
+for ticket, operator in callbacks:
+    last_operator[ticket] = operator
+print(f"ticket-{current_ticket.split('-')[1]} > {last_operator.get(current_ticket, 'ожидает назначения')}")
+print(f"ticket-{outdated_ticket.split('-')[1]} > {last_operator.get(outdated_ticket, 'ожидает назначения')}")
+
+
+
