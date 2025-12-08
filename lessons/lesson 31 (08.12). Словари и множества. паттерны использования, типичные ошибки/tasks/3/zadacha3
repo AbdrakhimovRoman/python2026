@@ -1,0 +1,6 @@
+set_a = {'ramen', 'gelato', 'coffee'}
+set_b = {'ramen', 'bbq', 'tapas'}
+intersection = set_a & set_b
+difference = set_b - set_a
+print("Пересечение:", intersection)
+print("Добавить вечером:", difference)
