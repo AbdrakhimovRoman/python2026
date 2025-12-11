@@ -1,0 +1,11 @@
+logs = [
+    ("A-17", "ok", 0),
+    ("B-04", "failed", 1),
+    ("C-31", "failed", 3),
+    ("D-22", "failed", 0)
+]
+result = [
+    f"{order_id}: {status}" 
+    for order_id, status, retries in logs 
+    if status == "failed" and retries < 2
+] + [f"total_failed: {sum(1 for o, s, r in logs if s == 'failed' and r < 2)}"]
