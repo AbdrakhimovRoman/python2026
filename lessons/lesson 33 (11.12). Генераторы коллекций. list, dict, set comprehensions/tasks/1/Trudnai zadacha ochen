@@ -1,0 +1,13 @@
+logs = [
+    ("A-17", "ok", 0),
+    ("B-04", "failed", 1),
+    ("C-31", "failed", 3),
+    ("D-22", "failed", 0)
+]
+failed_records = [(order_id, status) for order_id, status, retry in logs if status == "failed"]
+#получил список кортежей order_id and status
+#использую генератор списоков для общих значений retry типо Faild
+total_failed = sum(retry for order_id, status, retry in logs if status == "failed")
+result = [f"{order_id}:{status}" for order_id, status in failed_records] + [f"total_failed: {total_failed}"]
+#ресульт вывод итогового списка
+print(result)
