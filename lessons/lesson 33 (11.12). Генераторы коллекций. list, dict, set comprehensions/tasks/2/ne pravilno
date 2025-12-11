@@ -1,9 +1,0 @@
-tasks = ["разбор логов", "Code review", "делой"]
-owners = ["Анна", "Борис", "Вика"]
-durations = [38, 55, 48]
-median = sorted(durations)[len(durations) // 2]
-result = []
-for task, owner, duration in zip(tasks, owners, durations):
-    if duration <= median:
-        result.append(f"{owner}: {task} ({duration} мин)")
-print(result)
