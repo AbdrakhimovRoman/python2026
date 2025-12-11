@@ -1,0 +1,30 @@
+pipelines = [
+    {
+        "name": "ETL",
+        "owner": "Антон",
+        "steps": [
+            {"title": "extract", "duration": 60, "is_async": False},
+            {"title": "transform", "duration": 90, "is_async": True},
+            {"title": "load", "duration": 80, "is_async": True}
+        ]
+    },
+    {
+        "name": "Realtime",
+        "owner": "Борис",
+        "steps": [
+            {"title": "ingest", "duration": 120, "is_async": True},
+            {"title": "fanout", "duration": 150, "is_async": True}
+        ]
+    }
+]
+def total_duration(steps):
+    return sum(step["duration"] for step in steps)
+
+pipeline_stats = {
+    pipeline["name"]: {
+        "owner": pipeline["owner"],
+          "async_ratio": round(
+            sum(1 for step in pipeline["steps"] if step["is_async"]) / len(pipeline["steps"]), 2
+        )
+    }
+    
