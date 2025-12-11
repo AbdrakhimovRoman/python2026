@@ -1,0 +1,14 @@
+tasks = ["разбор логов", "Code review", "деплой"]
+owners = ["Анна", "Борис", "Вика"]
+durations = [38, 55, 48]
+
+sorted_durations = sorted(durations)
+n = len(sorted_durations)
+median = (sorted_durations[n//2] + sorted_durations[(n-1)//2]) / 2
+
+result = [
+    f"{owner}: {task} ({duration} мин)"
+    for task, owner, duration in zip(tasks, owners, durations)
+    if duration >= median
+]
+print(result)
