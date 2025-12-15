@@ -1,0 +1,28 @@
+def calculate_total(sales_list):
+    total_sum = 0
+    for sale in sales_list:
+        total_sum += sale
+    return total_sum
+def find_max_sale(sales_list):
+    if not sales_list:
+        return None
+    current_max = sales_list[0]
+    for sale in sales_list[1:]:
+        if sale > current_max:
+            current_max = sale
+    return current_max
+def count_above_threshold(sales_list, limit):
+    count = 0
+    for sale in sales_list:
+        if sale > limit:
+            count += 1
+    return count
+if __name__ == "__main__":
+    sales_data = [150, 200, 75, 300, 100]
+    threshold_value = 120
+    total_sales = calculate_total(sales_data)
+    max_sale = find_max_sale(sales_data)
+    above_threshold_count = count_above_threshold(sales_data, threshold_value)
+    print("Общая сумма продаж:", total_sales)
+    print("Максимальная продажа:", max_sale)
+    print(f"Продажи выше {threshold_value}:", above_threshold_count)
