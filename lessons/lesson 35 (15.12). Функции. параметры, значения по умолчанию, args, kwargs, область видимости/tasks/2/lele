@@ -1,0 +1,20 @@
+def add_task(task_list, title, status, categories=None):
+    if categories is None:
+        categories = []
+    new_task = {
+        'title': title,
+        'status': status,
+        'categories': categories
+    }
+    task_list.append(new_task)
+
+backlog = []
+add_task(backlog, "Написать ТЗ", "в работе")
+print(backlog)
+backlog = []
+add_task(title="Протестировать API", status="новая", task_list=backlog)
+print(backlog)
+backlog = []
+add_task(backlog, "Исправить баг", "в работе", ["bugfix", "critical"])
+add_task(backlog, "Обновить документацию", "ожидает")
+print(backlog)
