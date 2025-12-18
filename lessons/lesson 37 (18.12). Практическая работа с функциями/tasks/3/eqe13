@@ -1,0 +1,13 @@
+def push_score(score, scores=None):
+    if scores is None:
+        scores = []
+    scores.append(score)
+    return scores
+
+print(push_score(100)) 
+
+print(push_score(200, [10, 20, 30]))  
+def top_scores(scores, n):
+    return sorted(scores, reverse=True)[:n]
+
+print(top_scores([10, 20, 30, 40, 50], 3))
