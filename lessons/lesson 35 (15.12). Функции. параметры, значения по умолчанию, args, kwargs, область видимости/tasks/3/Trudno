@@ -1,0 +1,20 @@
+def collect_stats(*args, **kwargs):
+    numbers = list(args) + list(kwargs.values())
+    if not numbers:
+        return {'count': 0, 'sum': 0, 'max': None, 'min': None}
+    else:
+        return {
+            'count': len(numbers),
+            'sum': sum(numbers),
+            'max': max(numbers),
+            'min': min(numbers)
+        }
+def unpack_and_call(list_of_numbers, dict_of_numbers):
+    return collect_stats(*list_of_numbers, **dict_of_numbers)
+    my_list = [5, 15, 25]
+my_dict = {'reading': 100, 'offset': -5}
+result = unpack_and_call(my_list, my_dict)
+print("Результат второго примера:", result)
+result = collect_stats()
+print("Результат третьего примера:", result)
+
