@@ -1,0 +1,8 @@
+def mean_abs_deviation(*values):
+    if not values:
+        raise ValueError("Невозможно рассчитать среднее без входных данных.")
+    average = sum(values) / len(values)
+    deviation = tuple
+print(mean_abs_deviation(3, 5, 7, 9))
+existing_scores = [10, 8, 6]
+print(mean_abs_deviation(*existing_scores)) 
