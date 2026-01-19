@@ -1,0 +1,23 @@
+class Book:
+    def __init__(self, title, author, pages):
+        self.title = title
+        self.author = author
+        self.pages = pages
+
+    def open(self):
+        print(f"Книга \"{self.title}\" открыта на первой странице.")
+
+    def read(self):
+        print(f"Читаем книгу \"{self.title}\" автора {self.author}.")
+
+    def close(self):
+        print(f"Книга \"{self.title}\" закрыта.")
+
+    def info(self):
+        print(f"{self.title} - {self.author}, {self.pages} стр.")
+
+book = Book("2010", "Рождение будущего", 526)
+book.info()
+book.open()
+book.read()
+book.close()
