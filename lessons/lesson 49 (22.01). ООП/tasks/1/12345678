@@ -1,0 +1,11 @@
+from abc import ABC, abstractmethod
+class NotificationChannel(ABC):
+    def __init__(self, sender_name: str):
+        self.sender_name = sender_name
+        
+    def send(self, recipient: str, message: str) -> None:
+        pass
+    
+    def format_message(self, message: str) -> str:
+        return f"[{self.sender_name}] {message}"
+
