@@ -1,0 +1,24 @@
+def summarize_orders(*orders, **kwargs):
+    if not orders:
+        raise ValueError("Нет заказов для обработки")
+        
+    currency = kwargs.get("currency", "RUB")
+    round_to = kwargs.get("round_to", 2)
+    
+    total_items = sum(order[1] for order in orders)
+    avg_items = round(total_items / len(orders), round_to)
+    
+    return {
+        "orders": len(orders),
+        "total_items": total_items,
+        "avg_items": avg_items,
+        "currency": currency
+    }
+
+# Тестовые сценарии
+try:
+    print(summarize_orders(("кофе", 2), ("чай", 1)))
+    print(summarize_orders(("пицца", 3), ("салат", 1), round_to=1, currency="USD"))
+    print(summarize_orders())
+except ValueError as e:
+    print(e)
