@@ -1,0 +1,82 @@
+def rectangle_info(width, height):
+    area = width * height
+    perimeter = 2 * (width + height)
+    return area, perimeter
+
+def is_adult(age):
+    return age >= 18
+
+def safe_div(a, b):
+    if b == 0:
+        return None
+    return a / b
+
+def delivery_price(city, weight_kg, urgent=False):
+    base_cost = 500 if urgent else 300
+    cost_per_weight = 30 if urgent else 20
+    total_cost = base_cost + cost_per_weight * weight_kg
+    return total_cost
+
+def push_score(score, scores=None):
+    if scores is None:
+        scores = []
+    scores.append(score)
+    return scores
+
+def top_scores(scores, n=3):
+    sorted_scores = sorted(scores, reverse=True)
+    return sorted_scores[:n]
+
+def make_multiplier(factor):
+    def multiplier(x):
+        return x * factor
+    return multiplier
+
+def mean(*args):
+    if not args:
+        return None
+    return sum(args) / len(args)
+
+def build_profile(**kwargs):
+    profile = {
+        'name': kwargs.get('name', 'Без имени'),
+        'age': kwargs.get('age', 0),
+    }
+    return profile
+
+# Тестовые вызовы
+rect_area, rect_perimeter = rectangle_info(5, 10)
+print(f"Площадь и периметр прямоугольника: ({rect_area}, {rect_perimeter})")
+
+is_adult_result = is_adult(20)
+print(f"Совершеннолетний ли человек (20 лет)? {is_adult_result}")
+
+div_result = safe_div(10, 2)
+print(f"Безопасное деление 10 на 2: {div_result}")
+
+delivery_cost_positional = delivery_price("Москва", 5, True)
+print(f"Стоимость доставки (позиционный вызов): {delivery_cost_positional}")
+
+delivery_cost_named = delivery_price(weight_kg=5, city="Санкт-Петербург", urgent=True)
+print(f"Стоимость доставки (именованный вызов): {delivery_cost_named}")
+
+scores_list = push_score(85)
+scores_list = push_score(90, scores_list)
+print(f"Оценки (неявная передача списка): {scores_list}")
+
+existing_scores = [70, 80]
+updated_existing_scores = push_score(95, existing_scores)
+print(f"Обновленные существующие оценки: {updated_existing_scores}")
+
+top_n_scores = top_scores(updated_existing_scores, n=2)
+print(f"Топ-2 оценки: {top_n_scores}")
+
+double = make_multiplier(2)
+triple = make_multiplier(3)
+print(f"Двойное число 10: {double(10)}, тройное число 10: {triple(10)}")
+
+mean_value = mean(1, 2, 3, 4, 5)
+print(f"Среднее арифметическое: {mean_value}")
+
+profile = build_profile(name='Иван Иванов', age=30)
+print(f"Профиль пользователя: {profile}")
