@@ -1,0 +1,46 @@
+import csv
+
+with open('students.csv', 'r') as file:
+    reader = csv.DictReader(file)
+
+    subjects = ['Math', 'Physics', 'Chemistry']
+    sums = {'Math': 0, 'Physics': 0, 'Chemistry': 0}
+    count = 0
+    
+    for row in reader:
+        sums['Math'] += float(row['Math'])
+        sums['Physics'] += float(row['Physics'])
+        sums['Chemistry'] += float(row['Chemistry'])
+        count += 1
+    
+    averages = {subject: sum_value / count for subject, sum_value in sums.items()}
+    
+    for subject, average in averages.items():
+        print(f"{subject}: {average:.1f}")
+
+
+
+import json
+
+with open('employees.json', 'r') as file:
+    employees = json.load(file)
+
+salaries_by_department = {}
+
+for employee in employees:
+    department = employee["department"]
+    salary = employee["salary"]
+    
+    if department not in salaries_by_department:
+        salaries_by_department[department] = 0
+    
+    salaries_by_department[department] += salary
+
+with open('department_salaries.json', 'w') as output_file:
+    json.dump(salaries_by_department, output_file, indent=4)
+
+for dept, total_salary in salaries_by_department.items():
+    print(f'{dept}: {total_salary}')
+
+import csv
+import json
