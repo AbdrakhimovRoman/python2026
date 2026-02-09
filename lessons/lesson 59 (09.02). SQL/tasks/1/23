@@ -1,0 +1,8 @@
+Select * from train; 
+select Name from train WHERE AGE > 30;
+SELECT Name from train WHERE Sex = 'female' AND Pclass = 1;
+
+
+Select Name,Age From train WHERE Survived = 1 ORDER BY Age; 
+Select Name From train WHERE SibSp = 0 AND Parch = 0;
+SELECT Name, Pclass FROM titanic WHERE Fare > 100;
