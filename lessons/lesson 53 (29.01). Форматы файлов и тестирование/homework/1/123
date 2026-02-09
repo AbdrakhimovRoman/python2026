@@ -1,0 +1,46 @@
+import csv
+import json
+
+def read_csv(filename):
+    with open(filename, mode='r') as file:
+        reader = csv.DictReader(file)
+        data = [row for row in reader]
+    return data
+
+def calculate_total_sales(data, date):
+    total_sales_by_product = {}
+    store_sales = {}             
+    
+    for record in data:
+        if record['Date'] == date:
+            product = record['Product']
+            price = float(record['Price'])
+            quantity = int(record['Quantity'])
+            revenue = price * quantity
+        if product in total_sales_by_product:
+                total_sales_by_product[product]['total_sales'] += revenue
+            else:
+                total_sales_by_product[product] = {'product': product, 'total_sales': revenue}
+
+            store_name = record['Store']
+            if store_name in store_sales:
+                store_sales[store_name] += revenue
+            else:
+                store_sales[store_name] = revenue
+        
+    return total_sales_by_product, store_sales
+
+def save_report_to_json(report, filename):
+    with open(filename, 'w') as file:
+        json.dump(report, file, indent=4)
+
+if __name__ == "__main__":
+    input_date = input("Введите дату для отчетности (формат YYYY-MM-DD): ")
+    sales_data = read_csv('sales_data.csv')
+    total_sales_by_product, store_sales = calculate_total_sales(sales_data, input_date)
+
+    best_store = max(store_sales.items(), key=lambda item: item[1])
+    print(f"Наибольшие продажи за {input_date}: {best_store[0]} с объемом продаж {best_store[1]:.2f}")
+    
+    report = {input_date: list(total_sales_by_product.values())}
+    save_report_to_json(report, f'report_{input_date}.json')
