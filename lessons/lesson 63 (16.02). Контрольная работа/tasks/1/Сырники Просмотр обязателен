@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Моя визитка</title>
+  </head>
+  <body>
+    <h1>Абдрахимов Роман</h1>
+
+    <p>Меня зовут Роман, и я начинающий разработчик, который превращает любопытство в работающий код. Сейчас я активно осваиваю современные технологии и учусь создавать интуитивно понятные интерфейсы. Моя главная цель — вырасти в крепкого профессионала и приносить реальную пользу через качественные IT-решения..</p>
+
+    <h2></h2>
+    <ul>
+      <li>Хобби: Походы </li>
+      <li>Увлечение: Игры</li>
+      <li>Люблю сырники</li>
+    </ul>
+
+    <p>
+      Мой любимый поисковик: 
+      <a href="https://www.google.com" target="_blank">Google</a>
+    </p>
+
+    <img
+      src="data:https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTLyoIHZ2R6sUU6o0AL3uXiifx09xSEX0MMg&s
+      width="320"
+      height="200"
+    />
+  </body>
