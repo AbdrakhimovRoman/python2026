@@ -1,0 +1,12 @@
+import re
+def extract_dates(text):
+    Args:
+        text (str): Строка текста для поиска.
+    Returns:
+        list: Список найденных дат в формате 'ДД.ММ.ГГГГ'.
+    date_pattern = r'\b\d{2}\.\d{2}\.\d{4}\b'
+    found_dates = re.findall(date_pattern, text)
+    return found_dates
+sample_text = "Сегодня 25.04.2024, а завтра будет 26.04.2024. Конференция прошла 01.01.2023."
+dates = extract_dates(sample_text)
+print("Найденные даты:", dates)
