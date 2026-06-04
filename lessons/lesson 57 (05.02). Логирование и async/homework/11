@@ -1,0 +1,28 @@
+
+```python
+import logging
+from datetime import datetime, timedelta
+
+logger = logging.getLogger('registration_logger')
+logger.setLevel(logging.INFO)
+
+file_handler = logging.FileHandler('registration_log.txt')
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+
+def register_user(username: str):
+    try:
+        if username and username.isalpha():
+            logger.info(f"Пользователь {username} успешно зарегистрирован.")
+        else:
+            raise ValueError("Имя пользователя не предоставлено или некорректно.")
+    except ValueError as e:
+        logger.error(f"Ошибка: {e}")
+
+    next_registration_date = datetime.now() + timedelta(days=7)
+    return next_registration_date
+
+print(f"Дата повторной регистрации: {register_user('Ivan').strftime('%Y-%m-%d')}")
+print(f"Дата повторной регистрации: {register_user('').strftime('%Y-%m-%d')}")
+```
