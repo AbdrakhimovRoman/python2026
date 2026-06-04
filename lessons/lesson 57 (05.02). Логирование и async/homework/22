@@ -1,0 +1,15 @@
+import asyncio
+
+async def send_email(recipient, delay):
+    print(f"Начинаю отправку письма для {recipient}. Ожидание: {delay} сек.")
+    await asyncio.sleep(delay)
+    print(f"Письмо для {recipient} отправлено!")
+
+async def main():
+    users = [("Alice", 2), ("Bob", 3), ("Charlie", 1), ("Diana", 4)]
+    tasks = [asyncio.create_task(send_email(user, delay)) for user, delay in users]
+    print("Все задачи на отправку созданы. Ожидаем завершения...")
+    await asyncio.gather(*tasks)
+    print("Все письма отправлены! Завершение работы программы.")
+
+asyncio.run(main())
