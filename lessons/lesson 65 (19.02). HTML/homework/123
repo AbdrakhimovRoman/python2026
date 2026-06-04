@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница-визитка | Веб-разработчик</title>
+    <style>
+        /* --- Базовые стили (Box Model, Шрифты, Фон) --- */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6; /* Улучшенная читаемость */
+            background-color: #f4f6f9;
+            color: #333333;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- Шапка сайта (Flexbox, Градиент) --- */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); /* Градиентный фон */
+            color: #ffffff;
+            padding: 40px 20px;
+        }
+
+        .header__container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+            gap: 20px;
+            text-align: center;
+        }
+
+        /* Медиавыражение для адаптивности шапки */
+        @media (min-width: 600px) {
+            .header__container {
+                flex-direction: row;
+                text-align: left;
+            }
+        }
+
+        .header__avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%; /* Скругление */
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            object-fit: cover;
+        }
+
+        .header__bio {
+            flex: 1;
+        }
+
+        .header__title {
+            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+        }
+
+        .header__subtitle {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            color: #e0e6ed;
+            font-weight: 500;
+        }
+
+        .header__desc {
+            margin: 0;
+            font-size: 1rem;
+            color: #cbd5e1;
+        }
+
+        /* --- Главный контент и секции --- */
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section {
+            margin-bottom: 40px; /* Согласованные отступы */
+        }
+
+        .section__title {
+            font-size: 1.6rem;
+            color: #1e3c72;
+            margin-top: 0;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        /* Декоративная линия под заголовком */
+        .section__title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #2a5298;
+            border-radius: 2px;
+        }
+
+        /* --- Список навыков --- */
+        .skills-list {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .skills-list__item {
+            margin-bottom: 8px;
+        }
+
+        /* --- Карточки проектов (Flexbox сетка с переносом) --- */
+        .projects-grid {
+            display: flex;
+            flex-wrap: wrap; /* Перенос элементов */
+            gap: 20px;
+        }
+
+        .project-card {
+            background-color: #ffffff;
+            border-radius: 8px; /* Скругление */
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            flex: 1 1 100%; /* На мобильных на всю ширину */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* На экранах пошире делим сетку на 2 колонки */
+        @media (min-width: 600px) {
+            .project-card {
+                flex: 1 1 calc(50% - 10px);
+            }
+        }
+
+        .project-card__image-wrapper {
+            width: 100%;
+            background-color: #e2e8f0;
+        }
+
+        .project-card__img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .project-card__content {
+            padding: 20px; /* Внутренние отступы */
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .project-card__title {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            color: #1e3c72;
+        }
+
+        .project-card__text {
+            margin: 0 0 20px 0;
+            font-size: 0.95rem;
+            color: #64748b;
+            flex-grow: 1;
+        }
+
+        /* --- Ссылки и интерактивность --- */
+        .project-card__link {
+            display: inline-block;
+            align-self: flex-start;
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease, transform 0.2s ease; /* Плавные переходы */
+        }
+
+        .project-card__link:hover {
+            color: #1e3c72;
+            transform: translateX(4px); /* Эффект при наведении */
+        }
+
+        .project-card__link:focus {
+            outline: 2px dashed #2a5298;
+            outline-offset: 4px;
+        }
+
+        /* --- Подвал (Footer) --- */
+        .footer {
+            background-color: #1e293b;
+            color: #94a3b8;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer__text {
+            margin: 0 0 15px 0;
+        }
+
+        .footer__contacts {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer__link {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.2s ease; /* Плавный переход */
+        }
+
+        .footer__link:hover {
+            color: #ffffff; /* Изменение цвета при наведении */
+        }
+
+        .footer__link:focus {
+            outline: 2px dashed #cbd5e1;
+            outline-offset: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header__container">
+            <img src="https://unsplash.com" alt="Фотография профиля разработчика" class="header__avatar">
+            <div class="header__bio">
+                <h1 class="header__title">Алексей Иванов</h1>
+                <p class="header__subtitle">Junior Frontend Developer</p>
+                <p class="header__desc">Создаю чистый, адаптивный и доступный интерфейс для веб-приложений.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="section section--about">
+            <h2 class="section__title">Обо мне</h2>
+            <div class="section__body">
+                <p>Привет! Я начинающий веб-разработчик. Увлекаюсь созданием современных сайтов и приложений. Постоянно изучаю новые технологии и стремлюсь к написанию семантичного кода. Готов к командной работе над интересными проектами.</p>
+            </div>
+        </section>
+
+        <section class="section section--skills">
+            <h2 class="section__title">Навыки</h2>
+            <div class="section__body">
+                <ul class="skills-list">
+                    <li class="skills-list__item">Семантическая верстка HTML5</li>
+                    <li class="skills-list__item">Современный CSS3 и Flexbox/Grid</li>
+                    <li class="skills-list__item">Адаптивный и мобильный дизайн</li>
+                    <li class="skills-list__item">Базовый JavaScript (ES6+)</li>
+                    <li class="skills-list__item">Работа с системой контроля версий Git</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section section--projects">
+            <h2 class="section__title">Проекты</h2>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <div class="project-card__image-wrapper">
+                        <img src="https://unsplash.com" alt="Превью сайта-портфолио" class="project-card__img">
+                    </div>
+                    <div class="project-card__content">
+                        <h3 class="project-card__title">Сайт-портфолио</h3>
+                        <p class="project-card__text">Адаптивная персональная страница с галереей работ и контактной формой.</p>
+                        <a href="https://github.com" target="_blank" rel="noopener" class="project-card__link">Смотреть код</a>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-card__image-wrapper">
+                        <img src="https://unsplash.com" alt="Превью приложения списка задач" class="project-card__img">
+                    </div>
+                    <div class="project-card__content">
+                        <h3 class="project-card__title">Приложение Todo List</h3>
+                        <p class="project-card__text">Интерактивный менеджер задач с возможностью фильтрации и сохранения данных.</p>
+                        <a href="https://github.com" target="_blank" rel="noopener" class="project-card__link">Смотреть код</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p class="footer__text">© 2026 Алексей Иванов. Все права защищены.</p>
+        <div class="footer__contacts">
+            <a href="mailto:alexey@example.com" class="footer__link">alexey@example.com</a>
+            <a href="https://t.me" target="_blank" rel="noopener" class="footer__link">Telegram</a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="footer__link">GitHub</a>
