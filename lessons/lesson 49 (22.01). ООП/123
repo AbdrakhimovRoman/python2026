@@ -1,0 +1,75 @@
+```python
+from abc import ABC, abstractmethod
+
+class DiscountPolicy(ABC):
+    def __init__(self, name: str):
+        self.name = name
+    @abstractmethod
+    def apply(self, price: float) -> float:
+        pass
+    def clamp_price(self, price: float) -> float:
+        return max(0, price)
+
+class PercentDiscount(DiscountPolicy):
+    def __init__(self, name: str, percent: float):
+        super().__init__(name)
+        self.percent = percent
+    def apply(self, price: float) -> float:
+        price = super().clamp_price(price)
+        return price * (100 - self.percent) / 100
+
+class FixedDiscount(DiscountPolicy):
+    def __init__(self, name: str, amount: float):
+        super().__init__(name)
+        self.amount = amount
+    def apply(self, price: float) -> float:
+        price = super().clamp_price(price)
+        return max(0, price - self.amount)
+
+class PriceCalculator:
+    def __init__(self, policies: list):
+        self.policies = policies
+    def calculate(self, price: float) -> float:
+        current_price = price
+        for policy in self.policies:
+            current_price = policy.apply(current_price)
+            print(f"  Применена политика '{policy.name}'. Новая цена: {current_price:.2f}")
+        return current_price
+
+class MinPriceDiscount(DiscountPolicy):
+    def __init__(self, name: str, min_price: float, percent: float):
+        super().__init__(name)
+        self.min_price = min_price
+        self.percent = percent
+    def apply(self, price: float) -> float:
+        price = super().clamp_price(price)
+        if price < self.min_price:
+            print(f"  Цена {price:.2f} ниже порога {self.min_price:.2f}. Скидка не применяется.")
+            return price
+        return price * (100 - self.percent) / 100
+
+print("=== Задача 1: Тестирование базовых политик ===")
+summer_sale = PercentDiscount("Летняя распродажа -10%", 10)
+coupon_500 = FixedDiscount("Купон на 500 руб.", 500)
+calculator_1 = PriceCalculator([summer_sale, coupon_500])
+
+print("\nТест 1.1: Цена 5000")
+final_price_1 = calculator_1.calculate(5000)
+print(f"Итоговая цена после всех скидок: {final_price_1:.2f}\n")
+
+print("Тест 1.2: Цена 400")
+final_price_2 = calculator_1.calculate(400)
+print(f"Итоговая цена после всех скидок: {final_price_2:.2f}\n")
+
+print("=== Задача 2: Тестирование политики MinPriceDiscount ===")
+premium_discount = MinPriceDiscount("Скидка для дорогих товаров -20% (от 3000)", 3000, 20)
+calculator_2 = PriceCalculator([summer_sale, premium_discount])
+
+print("\nТест 2.1: Цена 2500 (ниже порога)")
+final_price_3 = calculator_2.calculate(2500)
+print(f"Итоговая цена после всех скидок: {final_price_3:.2f}\n")
+
+print("Тест 2.2: Цена 4500 (выше порога)")
+final_price_4 = calculator_2.calculate(4500)
+print(f"Итоговая цена после всех скидок: {final_price_4:.2f}")
+```
