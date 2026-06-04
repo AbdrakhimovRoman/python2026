@@ -1,0 +1,50 @@
+
+CREATE TABLE Students (
+    StudentID INTEGER PRIMARY KEY AUTOINCREMENT,
+    FirstName TEXT NOT NULL,
+    LastName TEXT NOT NULL
+);
+
+CREATE TABLE Courses (
+    CourseID INTEGER PRIMARY KEY AUTOINCREMENT,
+    CourseName TEXT NOT NULL,
+    Credits INTEGER NOT NULL
+);
+
+CREATE TABLE Enrollments (
+    StudentID INTEGER,
+    CourseID INTEGER,
+    PRIMARY KEY (StudentID, CourseID),
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);
+
+INSERT INTO Students (FirstName, LastName) VALUES 
+('Иван', 'Иванов'),
+('Анна', 'Петрова'),
+('Сергей', 'Сидоров');
+
+INSERT INTO Courses (CourseName, Credits) VALUES 
+('Базы данных', 4),
+('Веб-разработка', 5),
+('Высшая математика', 3);
+
+INSERT INTO Enrollments (StudentID, CourseID) VALUES 
+(1, 1), -- Иван записан на Базы данных
+(1, 2), -- Иван записан на Веб-разработку
+(2, 2), -- Анна записана на Веб-разработку
+(3, 3); -- Сергей записан на Высшую математику
+
+SELECT 
+    Students.LastName AS [Фамилия],
+    Students.FirstName AS [Имя],
+    Courses.CourseName AS [Название курса]
+FROM Students
+JOIN Enrollments ON Students.StudentID = Enrollments.StudentID
+JOIN Courses ON Enrollments.CourseID = Courses.CourseID;
+
+DELETE FROM Enrollments;
+DELETE FROM Students;
+DELETE FROM Courses;
+
+DELETE FROM sqlite_sequence WHERE name IN ('Students', 'Courses');
