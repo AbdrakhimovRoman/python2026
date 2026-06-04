@@ -1,0 +1,12 @@
+def is_balanced(string):
+    if len(string) == 0:
+        return True
+    pair_found = False
+    for pair in ["()", "[]", "{}"]:
+        if pair in string:
+            pair_found = True
+            string = string.replace(pair, "")
+    if pair_found:
+        return is_balanced(string)
+    else:
+        return False
