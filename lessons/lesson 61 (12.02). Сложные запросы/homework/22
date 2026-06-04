@@ -1,0 +1,23 @@
+CREATE TABLE Students (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    birth_date TEXT,
+    email TEXT UNIQUE NOT NULL,
+    course_name TEXT NOT NULL,
+    enrollment_date TEXT
+);
+
+INSERT INTO Students (name, birth_date, email, course_name, enrollment_date) VALUES 
+('Алексей Иванов', '2003-05-15', 'alex@example.com', 'Программирование', '2025-09-01'),
+('Мария Петрова', '2004-02-22', 'maria@example.com', 'Дизайн интерфейсов', '2025-09-02'),
+('Дмитрий Сидоров', '2002-11-10', 'dmitry@example.com', 'Программирование', '2025-09-01'),
+('Елена Кузнецова', '2003-08-30', 'elena@example.com', 'Маркетинг', '2025-09-05'),
+('Игорь Федоров', '2004-01-14', 'igor@example.com', 'Программирование', '2025-09-03');
+
+SELECT name 
+FROM Students 
+WHERE email IN (
+    SELECT email 
+    FROM Students 
+    WHERE course_name = 'Программирование'
+);
